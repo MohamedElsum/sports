@@ -28,28 +28,58 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<BottomNavigationBarItem> _items = [
     BottomNavigationBarItem(
       label: "Home",
-      icon: SvgPicture.asset('assets/images/inactive.svg'),
-      activeIcon: SvgPicture.asset('assets/images/active.svg'),
+      icon: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        child: SvgPicture.asset('assets/images/inactive.svg'),
+      ),
+      activeIcon: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        child: SvgPicture.asset('assets/images/active.svg'),
+      ),
     ),
     BottomNavigationBarItem(
       label: "League Table",
-      icon: SvgPicture.asset('assets/images/inactive.svg'),
-      activeIcon: SvgPicture.asset('assets/images/active.svg'),
+      icon: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        child: SvgPicture.asset('assets/images/inactive.svg'),
+      ),
+      activeIcon: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        child: SvgPicture.asset('assets/images/active.svg'),
+      ),
     ),
     BottomNavigationBarItem(
       label: "Media Center",
-      icon: SvgPicture.asset('assets/images/inactive.svg'),
-      activeIcon: SvgPicture.asset('assets/images/active.svg'),
+      icon: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        child: SvgPicture.asset('assets/images/inactive.svg'),
+      ),
+      activeIcon: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        child: SvgPicture.asset('assets/images/active.svg'),
+      ),
     ),
     BottomNavigationBarItem(
       label: "Complete stats",
-      icon: SvgPicture.asset('assets/images/starinactive.svg'),
-      activeIcon: SvgPicture.asset('assets/images/star.svg'),
+      icon: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        child: SvgPicture.asset('assets/images/starinactive.svg'),
+      ),
+      activeIcon: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        child: SvgPicture.asset('assets/images/star.svg'),
+      ),
     ),
     BottomNavigationBarItem(
       label: "More",
-      icon: SvgPicture.asset('assets/images/inactive.svg'),
-      activeIcon: SvgPicture.asset('assets/images/active.svg'),
+      icon: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        child: SvgPicture.asset('assets/images/inactive.svg'),
+      ),
+      activeIcon: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        child: SvgPicture.asset('assets/images/active.svg'),
+      ),
     ),
   ];
 
