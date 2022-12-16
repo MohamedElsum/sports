@@ -213,7 +213,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
               width: double.infinity,
-              height: size.height * 0.42,
+              height: size.height * 0.43,
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
               decoration: const BoxDecoration(
                 color: Colors.white,

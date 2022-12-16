@@ -40,7 +40,7 @@ class _MediaCenterPageState extends State<MediaCenterPage>
             child: Column(
               children: [
                 SizedBox(
-                  height: size.height * 0.081,
+                  height: size.height * 0.096,
                 ),
                 Image.asset('assets/images/logo.png'),
                 Container(

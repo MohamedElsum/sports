@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sports/presentation/screens/contact_us.dart';
 import 'package:sports/presentation/widgets/more_icons.dart';
 import 'package:sports/presentation/widgets/more_text.dart';
 
@@ -34,7 +35,16 @@ class _MorePageState extends State<MorePage> {
             MoreText(text: 'About Us'),
             MoreText(text: 'Regulations and Systems'),
             MoreText(text: 'Committees'),
-            MoreText(text: 'Contact Us'),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ContactUs(),
+                  ),
+                );
+              },
+              child: MoreText(text: 'Contact Us'),
+            ),
             MoreText(text: 'Share the app'),
             MoreText(text: 'Subscribe to the newsletter'),
             MoreText(text: 'Switch Language'),

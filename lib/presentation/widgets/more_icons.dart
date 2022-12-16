@@ -12,7 +12,7 @@ class MoreIcons extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(
         vertical: 10,
-        horizontal: 10,
+        horizontal: 15,
       ),
       alignment: Alignment.centerRight,
       child: Image.asset(icon),
