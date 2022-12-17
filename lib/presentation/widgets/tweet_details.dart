@@ -1,21 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../controller/translation/translation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class TweetDetails extends StatelessWidget {
+class TweetDetails extends StatefulWidget {
   const TweetDetails({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<TweetDetails> createState() => _TweetDetailsState();
+}
 
+class _TweetDetailsState extends State<TweetDetails> {
+  final translationcontroller = Get.put(Translation());
+
+  @override
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var language = AppLocalizations.of(context);
 
     return Column(
       children: [
         ListTile(
           leading: Image.asset('assets/images/logo.png'),
-          title: const Text(
-            'Sports League',
+          title: Text(
+            language!.sportsleague,
             style: TextStyle(
-              fontFamily: 'PoppinsBold',
+              fontFamily: translationcontroller.isArabic.value
+                  ? 'JannatBold'
+                  : 'PoppinsBold',
               fontSize: 16,
             ),
           ),
@@ -28,16 +40,18 @@ class TweetDetails extends StatelessWidget {
           ),
         ),
         Container(
-          child: const Text(
-            'When the world wants to speak, it speaks in Unicode. Register now to attend the Tenth International Unicode Conference, to be held on March 10-12, 1997 in Mainz, Germany.',
+          child: Text(
+            language.tweetContent,
             style: TextStyle(
               fontSize: 12,
-              fontFamily: 'PoppinsRegular',
+              fontFamily: translationcontroller.isArabic.value
+                  ? 'JannatRegular'
+                  : 'PoppinsRegular',
             ),
           ),
         ),
         SizedBox(
-          height: size.height*0.02,
+          height: size.height * 0.02,
         ),
       ],
     );

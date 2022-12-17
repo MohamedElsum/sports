@@ -1,5 +1,9 @@
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sports/domain/models/news_data.dart';
+import '../../controller/translation/translation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewDetail extends StatelessWidget {
   NewsData news;
@@ -11,6 +15,8 @@ class NewDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    final translationcontroller = Get.put(Translation());
+    var language = AppLocalizations.of(context);
 
     return Row(
       children: [
@@ -27,9 +33,13 @@ class NewDetail extends StatelessWidget {
                   ),
                   Positioned(
                     bottom: 0,
-                    left: 0,
+                    left: translationcontroller.isArabic.value
+                        ? size.width * 0.259
+                        : size.width * 0.00,
                     child: Image.asset(
-                      'assets/images/sum.png',
+                      translationcontroller.isArabic.value
+                          ? 'assets/images/newslogo.png'
+                          : 'assets/images/sum.png',
                       width: size.width * 0.1,
                     ),
                   ),
@@ -47,21 +57,27 @@ class NewDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
-                'Sports League',
+                language!.sportsleague,
                 style: TextStyle(
                   fontSize: 14,
-                  fontFamily: 'PoppinsRegular',
+                  fontFamily: translationcontroller.isArabic.value
+                      ? 'JannatRegular'
+                      : 'PoppinsRegular',
                 ),
               ),
               SizedBox(
                 height: size.height * 0.01,
               ),
               Text(
-                news.titleEn.toString(),
+                translationcontroller.isArabic.value
+                    ? news.titleAr.toString()
+                    : news.titleEn.toString(),
                 maxLines: 3,
                 style: TextStyle(
                   fontSize: 14,
-                  fontFamily: 'PoppinsBold',
+                  fontFamily: translationcontroller.isArabic.value
+                      ? 'JannatBold'
+                      : 'PoppinsBold',
                 ),
               ),
               SizedBox(

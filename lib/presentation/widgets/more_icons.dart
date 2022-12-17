@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../controller/translation/translation.dart';
 
 class MoreIcons extends StatelessWidget {
   String icon;
@@ -7,6 +9,8 @@ class MoreIcons extends StatelessWidget {
     required this.icon,
   });
 
+  final translationcontroller = Get.put(Translation());
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +18,9 @@ class MoreIcons extends StatelessWidget {
         vertical: 10,
         horizontal: 15,
       ),
-      alignment: Alignment.centerRight,
+      alignment: translationcontroller.isArabic.value
+          ? Alignment.centerLeft
+          : Alignment.centerRight,
       child: Image.asset(icon),
     );
   }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../controller/translation/translation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TextInput extends StatelessWidget {
   String? hint;
@@ -14,15 +17,18 @@ class TextInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translationcontroller = Get.put(Translation());
+    var language = AppLocalizations.of(context);
+
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.9,
-      height: hint == 'Message Content'
+      height: hint == language!.messContent
           ? MediaQuery.of(context).size.height * 0.2
           : MediaQuery.of(context).size.height * 0.07,
       child: TextField(
         controller: controller,
         obscuringCharacter: '*',
-        maxLines: hint == 'Message Content' ? 8 : 1,
+        maxLines: hint == language.messContent ? 8 : 1,
         obscureText: hint == 'Password'
             ? true
             : hint == 'Confirm Password'
@@ -60,8 +66,10 @@ class TextInput extends StatelessWidget {
           hintText: hint,
           hintStyle: TextStyle(
             color: Colors.grey,
-            fontSize: 14.0,
-            fontFamily: 'PoppinsRegular',
+            fontSize: 15.0,
+            fontFamily: translationcontroller.isArabic.value
+                ? 'JannatRegular'
+                : 'PoppinsRegular',
           ),
         ),
       ),

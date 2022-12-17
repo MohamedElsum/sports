@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:sports/domain/models/news_data.dart';
 import 'package:sports/presentation/widgets/new_details.dart';
-
-import '../../domain/models/news.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../controller/translation/translation.dart';
 import 'news_content.dart';
 
 class NewsPage extends StatefulWidget {
@@ -15,9 +17,12 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
+  final translationcontroller = Get.put(Translation());
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var language = AppLocalizations.of(context);
 
     return SingleChildScrollView(
       child: Column(

@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../controller/translation/translation.dart';
 import '../widgets/text_input.dart';
 
 class CompleteContactUs extends StatefulWidget {
@@ -11,6 +13,8 @@ class CompleteContactUs extends StatefulWidget {
 }
 
 class _CompleteContactUsState extends State<CompleteContactUs> {
+  final translationcontroller = Get.put(Translation());
+
   TextEditingController messageTitleController = TextEditingController();
   bool messageTitleValidate = false;
   TextEditingController messageContentController = TextEditingController();
@@ -20,6 +24,7 @@ class _CompleteContactUsState extends State<CompleteContactUs> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var language = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(243, 243, 243, 1),
@@ -42,10 +47,20 @@ class _CompleteContactUsState extends State<CompleteContactUs> {
                   ),
                   Image.asset('assets/images/logo.png'),
                   Container(
-                    alignment: Alignment.centerLeft,
-                    child: Icon(
-                      Icons.arrow_back_ios_new_outlined,
-                      color: Colors.white,
+                    alignment: translationcontroller.isArabic.value
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: translationcontroller.isArabic.value
+                          ? Image.asset('assets/images/Icon.png')
+                          : Icon(
+                              Icons.arrow_back_ios_new_outlined,
+                              color: Colors.white,
+                            ),
                     ),
                   ),
                 ],
@@ -55,13 +70,17 @@ class _CompleteContactUsState extends State<CompleteContactUs> {
               height: size.height * 0.02,
             ),
             Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 15),
+              alignment: translationcontroller.isArabic.value
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Text(
-                'Contact Us',
+                language!.contactus,
                 style: TextStyle(
                   fontSize: 22,
-                  fontFamily: 'PoppinsRegular',
+                  fontFamily: translationcontroller.isArabic.value
+                      ? 'JannatRegular'
+                      : 'PoppinsRegular',
                 ),
               ),
             ),
@@ -69,7 +88,7 @@ class _CompleteContactUsState extends State<CompleteContactUs> {
               height: size.height * 0.02,
             ),
             TextInput(
-              hint: 'Message Title',
+              hint: language.messTitle,
               validate: messageTitleValidate,
               err: 'Error',
               controller: messageTitleController,
@@ -88,10 +107,13 @@ class _CompleteContactUsState extends State<CompleteContactUs> {
               ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton(
-                  hint: const Text(
-                    'Message Type',
+                  hint: Text(
+                    language.messType,
                     style: TextStyle(
                       color: Colors.grey,
+                      fontFamily: translationcontroller.isArabic.value
+                          ? 'JannatRegular'
+                          : 'PoppinsRegular',
                     ),
                   ),
                   isExpanded: true,
@@ -99,7 +121,14 @@ class _CompleteContactUsState extends State<CompleteContactUs> {
                   items: <String>['Complaint', 'Support'].map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Text(
+                        value,
+                        style: TextStyle(
+                          fontFamily: translationcontroller.isArabic.value
+                              ? 'JannatRegular'
+                              : 'PoppinsRegular',
+                        ),
+                      ),
                     );
                   }).toList(),
                   onChanged: (newValue) {
@@ -116,7 +145,7 @@ class _CompleteContactUsState extends State<CompleteContactUs> {
               height: size.height * 0.03,
             ),
             TextInput(
-              hint: 'Message Content',
+              hint: language.messContent,
               controller: messageContentController,
               err: 'Error',
               validate: messageContentValidate,
@@ -137,10 +166,12 @@ class _CompleteContactUsState extends State<CompleteContactUs> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Pick Images (Optional)',
+                    language.choosePhoto,
                     style: TextStyle(
                       fontSize: 16,
-                      fontFamily: 'PoppinsRegular',
+                      fontFamily: translationcontroller.isArabic.value
+                          ? 'JannatRegular'
+                          : 'PoppinsRegular',
                       color: Colors.grey,
                     ),
                   ),
@@ -166,11 +197,13 @@ class _CompleteContactUsState extends State<CompleteContactUs> {
                   ),
                 ),
                 onPressed: () {},
-                child: const Text(
-                  'Send',
+                child: Text(
+                  language.send,
                   style: TextStyle(
                     color: Colors.white,
-                    fontFamily: 'PoppinsRegular',
+                    fontFamily: translationcontroller.isArabic.value
+                        ? 'JannatRegular'
+                        : 'PoppinsRegular',
                     fontSize: 20,
                   ),
                 ),

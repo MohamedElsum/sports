@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-class MatchDetails extends StatelessWidget {
+import '../../controller/translation/translation.dart';
+
+class MatchDetails extends StatefulWidget {
   const MatchDetails({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<MatchDetails> createState() => _MatchDetailsState();
+}
 
+class _MatchDetailsState extends State<MatchDetails> {
+  final translationcontroller = Get.put(Translation());
+
+  @override
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var language = AppLocalizations.of(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -17,13 +30,15 @@ class MatchDetails extends StatelessWidget {
                 'assets/images/clublogo.png',
               ),
               SizedBox(
-                width: size.width*0.03,
+                width: size.width * 0.03,
               ),
               Text(
-                'AlAhly',
+                language!.alahly,
                 style: TextStyle(
                   fontSize: 14,
-                  fontFamily: 'PoppinsMedium',
+                  fontFamily: translationcontroller.isArabic.value
+                      ? 'JannatBold'
+                      : 'PoppinsMedium',
                 ),
               ),
             ],
@@ -41,9 +56,11 @@ class MatchDetails extends StatelessWidget {
                 ),
               ),
               Text(
-                'Thu 15 July',
+                language.matchDate,
                 style: TextStyle(
-                  fontFamily: 'PoppinsRegular',
+                  fontFamily: translationcontroller.isArabic.value
+                      ? 'JannatRegular'
+                      : 'PoppinsRegular',
                   fontSize: 12,
                   color: Colors.grey,
                 ),
@@ -58,13 +75,15 @@ class MatchDetails extends StatelessWidget {
                 'assets/images/clublogo.png',
               ),
               SizedBox(
-                width: size.width*0.03,
+                width: size.width * 0.03,
               ),
               Text(
-                'AlAhly',
+                language!.alahly,
                 style: TextStyle(
                   fontSize: 14,
-                  fontFamily: 'PoppinsMedium',
+                  fontFamily: translationcontroller.isArabic.value
+                      ? 'JannatBold'
+                      : 'PoppinsMedium',
                 ),
               ),
             ],

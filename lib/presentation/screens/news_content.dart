@@ -1,5 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sports/domain/models/news_data.dart';
+import '../../controller/translation/translation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewsContent extends StatefulWidget {
   NewsData newObject;
@@ -13,9 +17,12 @@ class NewsContent extends StatefulWidget {
 }
 
 class _NewsContentState extends State<NewsContent> {
+  final translationcontroller = Get.put(Translation());
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var language = AppLocalizations.of(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -37,15 +44,20 @@ class _NewsContentState extends State<NewsContent> {
                   ),
                   Image.asset('assets/images/logo.png'),
                   Container(
-                    alignment: Alignment.centerLeft,
+                    alignment: translationcontroller.isArabic.value
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: InkWell(
                       onTap: () {
                         Navigator.of(context).pop();
                       },
-                      child: Icon(
-                        Icons.arrow_back_ios_new_sharp,
-                        color: Colors.white,
-                      ),
+                      child: translationcontroller.isArabic.value
+                          ? Image.asset('assets/images/Icon.png')
+                          : Icon(
+                              Icons.arrow_back_ios_new_sharp,
+                              color: Colors.white,
+                            ),
                     ),
                   ),
                 ],
@@ -69,11 +81,16 @@ class _NewsContentState extends State<NewsContent> {
               height: size.height * 0.02,
             ),
             Container(
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: Text(
-                widget.newObject.titleEn.toString(),
+                translationcontroller.isArabic.value
+                    ? widget.newObject.titleAr.toString()
+                    : widget.newObject.titleEn.toString(),
                 style: TextStyle(
                   fontSize: 18,
-                  fontFamily: 'PoppinsBold',
+                  fontFamily: translationcontroller.isArabic.value
+                      ? 'JannatBold'
+                      : 'PoppinsBold',
                 ),
               ),
             ),
@@ -83,10 +100,14 @@ class _NewsContentState extends State<NewsContent> {
             Container(
               padding: const EdgeInsets.all(10),
               child: Text(
-                widget.newObject.contentEn.toString(),
+                translationcontroller.isArabic.value
+                    ? widget.newObject.contentAr.toString()
+                    : widget.newObject.contentEn.toString(),
                 style: TextStyle(
                   fontSize: 16,
-                  fontFamily: 'PoppinsRegular',
+                  fontFamily: translationcontroller.isArabic.value
+                      ? 'JannatRegular'
+                      : 'PoppinsRegular',
                 ),
               ),
             ),

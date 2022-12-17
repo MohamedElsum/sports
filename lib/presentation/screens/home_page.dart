@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:sports/business_logic/cubit/news_cubit/news_state.dart';
 import 'package:sports/presentation/widgets/match_details.dart';
 import 'package:sports/presentation/widgets/tweet_details.dart';
 import 'package:sports/presentation/widgets/winner_guess.dart';
-
 import '../../business_logic/cubit/news_cubit/news_cubit.dart';
+import '../../controller/translation/translation.dart';
 import '../../domain/models/news_data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   final NewsCubit newsCubit;
 
   const HomePage({Key? key, required this.newsCubit}) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final translationcontroller = Get.put(Translation());
+
   @override
   void initState() {
     super.initState();
@@ -44,9 +48,12 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildBlocWidget(state, size) {
     if (state is NewsLoading) {
-      return const Center(
-        child: CircularProgressIndicator(
-          color: Colors.black,
+      return Container(
+        color: Colors.black12,
+        child: const Center(
+          child: CircularProgressIndicator(
+            color: Color.fromRGBO(15, 23, 55, 1),
+          ),
         ),
       );
     } else if (state is NewsSuccess) {
@@ -57,6 +64,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildBodyWidget(Size size, List<NewsData> newss) {
+    var language = AppLocalizations.of(context);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -81,19 +90,23 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
-                  'Latest News',
+                  language!.latestNews,
                   style: TextStyle(
                     fontSize: 16,
-                    fontFamily: 'PoppinsRegular',
+                    fontFamily: translationcontroller.isArabic.value
+                        ? 'JannatRegular'
+                        : 'PoppinsRegular',
                   ),
                 ),
                 Text(
-                  'More',
+                  language.more,
                   style: TextStyle(
                     fontSize: 14,
-                    fontFamily: 'PoppinsMedium',
+                    fontFamily: translationcontroller.isArabic.value
+                        ? 'JannatBold'
+                        : 'PoppinsMedium',
                     color: Color.fromRGBO(0, 112, 172, 1),
                   ),
                 ),
@@ -118,10 +131,16 @@ class _HomePageState extends State<HomePage> {
                         fit: BoxFit.cover,
                       ),
                       Positioned(
-                        right: -12,
-                        bottom: -17,
+                        right: translationcontroller.isArabic.value
+                            ? size.width * -0.03
+                            : size.width * 0.78,
+                        bottom: translationcontroller.isArabic.value
+                            ? size.height * -0.025
+                            : size.height * -0.024,
                         child: Image.asset(
-                          'assets/images/newslogo.png',
+                          translationcontroller.isArabic.value
+                              ? 'assets/images/newslogo.png'
+                              : 'assets/images/sum.png',
                           width: size.width * 0.2,
                           height: size.height * 0.1,
                         ),
@@ -136,30 +155,39 @@ class _HomePageState extends State<HomePage> {
             height: size.height * 0.01,
           ),
           Container(
-            alignment: Alignment.centerLeft,
+            alignment: translationcontroller.isArabic.value
+                ? Alignment.centerRight
+                : Alignment.centerLeft,
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: const Text(
-              'Sports League',
+            child: Text(
+              language.sportsleague,
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 14,
-                fontFamily: 'PoppinsMedium',
+                fontFamily: translationcontroller.isArabic.value
+                    ? 'JannatBold'
+                    : 'PoppinsMedium',
               ),
             ),
           ),
           SizedBox(
-            height: size.height * 0.01,
+            height: size.height * 0.004,
           ),
           Container(
-            alignment: Alignment.centerLeft,
+            alignment: translationcontroller.isArabic.value
+                ? Alignment.centerRight
+                : Alignment.centerLeft,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              newss[0].titleEn.toString(),
+              translationcontroller.isArabic.value
+                  ? newss[0].titleAr.toString()
+                  : newss[0].titleEn.toString(),
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 13,
-                //fontWeight: FontWeight.bold,
-                fontFamily: 'PoppinsMedium',
+                fontSize: translationcontroller.isArabic.value ? 14 : 13,
+                fontFamily: translationcontroller.isArabic.value
+                    ? 'JannatBold'
+                    : 'PoppinsMedium',
               ),
             ),
           ),
@@ -170,19 +198,23 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
-                  'Upcomin Matches',
+                  language.upcomingMatches,
                   style: TextStyle(
                     fontSize: 16,
-                    fontFamily: 'PoppinsRegular',
+                    fontFamily: translationcontroller.isArabic.value
+                        ? 'JannatRegular'
+                        : 'PoppinsRegular',
                   ),
                 ),
                 Text(
-                  'More',
+                  language.more,
                   style: TextStyle(
                     fontSize: 14,
-                    fontFamily: 'PoppinsMedium',
+                    fontFamily: translationcontroller.isArabic.value
+                        ? 'JannatBold'
+                        : 'PoppinsMedium',
                     color: Color.fromRGBO(0, 112, 172, 1),
                   ),
                 ),
@@ -194,7 +226,9 @@ class _HomePageState extends State<HomePage> {
           ),
           Container(
             width: double.infinity,
-            height: size.height * 0.21,
+            height: translationcontroller.isArabic.value
+                ? size.height * 0.23
+                : size.height * 0.21,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -228,19 +262,23 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
-                  'Last Tweets',
+                  language.lastTweets,
                   style: TextStyle(
                     fontSize: 16,
-                    fontFamily: 'PoppinsRegular',
+                    fontFamily: translationcontroller.isArabic.value
+                        ? 'JannatRegular'
+                        : 'PoppinsRegular',
                   ),
                 ),
                 Text(
-                  'More',
+                  language.more,
                   style: TextStyle(
                     fontSize: 14,
-                    fontFamily: 'PoppinsMedium',
+                    fontFamily: translationcontroller.isArabic.value
+                        ? 'JannatBold'
+                        : 'PoppinsMedium',
                     color: Color.fromRGBO(0, 112, 172, 1),
                   ),
                 ),
@@ -252,7 +290,9 @@ class _HomePageState extends State<HomePage> {
           ),
           Container(
             width: double.infinity,
-            height: size.height * 0.43,
+            height: translationcontroller.isArabic.value
+                ? size.height * 0.45
+                : size.height * 0.43,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -275,13 +315,17 @@ class _HomePageState extends State<HomePage> {
             height: size.height * 0.03,
           ),
           Container(
-            alignment: Alignment.centerLeft,
+            alignment: translationcontroller.isArabic.value
+                ? Alignment.centerRight
+                : Alignment.centerLeft,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              'Guess who is the winner',
+              language.guess,
               style: TextStyle(
                 fontSize: 16,
-                fontFamily: 'PoppinsRegular',
+                fontFamily: translationcontroller.isArabic.value
+                    ? 'JannatRegular'
+                    : 'PoppinsRegular',
               ),
             ),
           ),
@@ -298,9 +342,15 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                WinnerGuess(),
-                WinnerGuess(),
-                WinnerGuess(),
+                WinnerGuess(
+                  clubName: language.alhilal,
+                ),
+                WinnerGuess(
+                  clubName: language.alithad,
+                ),
+                WinnerGuess(
+                  clubName: language.alnahda,
+                ),
               ],
             ),
           ),
@@ -308,13 +358,17 @@ class _HomePageState extends State<HomePage> {
             height: size.height * 0.03,
           ),
           Container(
-            alignment: Alignment.centerLeft,
+            alignment: translationcontroller.isArabic.value
+                ? Alignment.centerRight
+                : Alignment.centerLeft,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              'Videos',
+              language.videos,
               style: TextStyle(
                 fontSize: 16,
-                fontFamily: 'PoppinsRegular',
+                fontFamily: translationcontroller.isArabic.value
+                    ? 'JannatRegular'
+                    : 'PoppinsRegular',
               ),
             ),
           ),
@@ -349,13 +403,17 @@ class _HomePageState extends State<HomePage> {
             height: size.height * 0.03,
           ),
           Container(
-            alignment: Alignment.centerLeft,
+            alignment: translationcontroller.isArabic.value
+                ? Alignment.centerRight
+                : Alignment.centerLeft,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              'Sponsors',
+              language.sponsor,
               style: TextStyle(
                 fontSize: 16,
-                fontFamily: 'PoppinsRegular',
+                fontFamily: translationcontroller.isArabic.value
+                    ? 'JannatRegular'
+                    : 'PoppinsRegular',
               ),
             ),
           ),

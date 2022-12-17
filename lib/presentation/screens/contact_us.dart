@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sports/presentation/screens/complete_contact_us.dart';
 import 'package:sports/presentation/widgets/text_input.dart';
+import '../../controller/translation/translation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({Key? key}) : super(key: key);
@@ -10,6 +13,8 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
+  final translationcontroller = Get.put(Translation());
+
   TextEditingController firstnameController = TextEditingController();
   bool fisrtnameValidate = false;
   TextEditingController secondnameController = TextEditingController();
@@ -22,6 +27,7 @@ class _ContactUsState extends State<ContactUs> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var language = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(243, 243, 243, 1),
@@ -44,10 +50,20 @@ class _ContactUsState extends State<ContactUs> {
                   ),
                   Image.asset('assets/images/logo.png'),
                   Container(
-                    alignment: Alignment.centerLeft,
-                    child: Icon(
-                      Icons.arrow_back_ios_new_outlined,
-                      color: Colors.white,
+                    alignment: translationcontroller.isArabic.value
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: translationcontroller.isArabic.value
+                          ? Image.asset('assets/images/Icon.png')
+                          : Icon(
+                              Icons.arrow_back_ios_new_outlined,
+                              color: Colors.white,
+                            ),
                     ),
                   ),
                 ],
@@ -57,13 +73,17 @@ class _ContactUsState extends State<ContactUs> {
               height: size.height * 0.02,
             ),
             Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 15),
+              alignment: translationcontroller.isArabic.value
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Text(
-                'Contact Us',
+                language!.contactus,
                 style: TextStyle(
                   fontSize: 22,
-                  fontFamily: 'PoppinsRegular',
+                  fontFamily: translationcontroller.isArabic.value
+                      ? 'JannatRegular'
+                      : 'PoppinsRegular',
                 ),
               ),
             ),
@@ -71,7 +91,7 @@ class _ContactUsState extends State<ContactUs> {
               height: size.height * 0.02,
             ),
             TextInput(
-              hint: 'First Name',
+              hint: language.firstName,
               validate: fisrtnameValidate,
               err: 'Error',
               controller: firstnameController,
@@ -80,7 +100,7 @@ class _ContactUsState extends State<ContactUs> {
               height: size.height * 0.03,
             ),
             TextInput(
-              hint: 'Second Name',
+              hint: language.lastName,
               validate: secondnameValidate,
               err: 'Error',
               controller: secondnameController,
@@ -89,7 +109,7 @@ class _ContactUsState extends State<ContactUs> {
               height: size.height * 0.03,
             ),
             TextInput(
-              hint: 'Email Address',
+              hint: language.email,
               validate: emailValidate,
               err: 'Error',
               controller: emailController,
@@ -98,7 +118,7 @@ class _ContactUsState extends State<ContactUs> {
               height: size.height * 0.03,
             ),
             TextInput(
-              hint: 'Phone Number',
+              hint: language.phoneNumber,
               validate: phoneNumberValidate,
               err: 'Error',
               controller: phoneNumberController,
@@ -127,11 +147,13 @@ class _ContactUsState extends State<ContactUs> {
                     ),
                   );
                 },
-                child: const Text(
-                  'Next',
+                child: Text(
+                  language.next,
                   style: TextStyle(
                     color: Colors.white,
-                    fontFamily: 'PoppinsRegular',
+                    fontFamily: translationcontroller.isArabic.value
+                        ? 'JannatRegular'
+                        : 'PoppinsRegular',
                     fontSize: 20,
                   ),
                 ),

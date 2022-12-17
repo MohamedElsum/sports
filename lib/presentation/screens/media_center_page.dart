@@ -1,9 +1,13 @@
-import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:sports/business_logic/cubit/news_cubit/news_cubit.dart';
 import 'package:sports/presentation/screens/news_page.dart';
 import 'package:sports/presentation/screens/photos_page.dart';
 import 'package:sports/presentation/screens/videos_page.dart';
+
+import '../../controller/translation/translation.dart';
 
 class MediaCenterPage extends StatefulWidget {
   NewsCubit newsCubit;
@@ -19,6 +23,7 @@ class MediaCenterPage extends StatefulWidget {
 class _MediaCenterPageState extends State<MediaCenterPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final translationcontroller = Get.put(Translation());
 
   @override
   void initState() {
@@ -29,6 +34,7 @@ class _MediaCenterPageState extends State<MediaCenterPage>
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var language = AppLocalizations.of(context);
 
     return Scaffold(
       body: Column(
@@ -58,17 +64,19 @@ class _MediaCenterPageState extends State<MediaCenterPage>
                     indicatorWeight: 4,
                     labelStyle: TextStyle(
                       fontSize: 14,
-                      fontFamily: 'PoppinsBold',
+                      fontFamily: translationcontroller.isArabic.value
+                          ? 'JannatBold'
+                          : 'PoppinsBold',
                     ),
                     tabs: [
                       Tab(
-                        text: 'News',
+                        text: language!.news,
                       ),
                       Tab(
-                        text: 'Photos',
+                        text: language.photos,
                       ),
                       Tab(
-                        text: 'Videos',
+                        text: language.videos,
                       ),
                     ],
                   ),
