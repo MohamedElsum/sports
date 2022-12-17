@@ -51,7 +51,7 @@ class _WinnerGuessState extends State<WinnerGuess> {
         SizedBox(
           height: size.height * 0.02,
         ),
-        Text(
+        const Text(
           '30 %',
           style: TextStyle(
             fontSize: 14,

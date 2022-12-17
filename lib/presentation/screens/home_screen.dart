@@ -33,10 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
     _newsCubit = BlocProvider.of<NewsCubit>(context);
     pages = [
       HomePage(newsCubit: _newsCubit),
-      LeagueTablePage(),
+      const LeagueTablePage(),
       MediaCenterPage(newsCubit: _newsCubit),
-      StatsPage(),
-      MorePage(),
+      const StatsPage(),
+      const MorePage(),
     ];
   }
 

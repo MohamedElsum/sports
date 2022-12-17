@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:get/get.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../controller/translation/translation.dart';
 import '../widgets/text_input.dart';
+import 'id_screen.dart';
 
 class CompleteContactUs extends StatefulWidget {
   const CompleteContactUs({Key? key}) : super(key: key);
@@ -20,6 +22,32 @@ class _CompleteContactUsState extends State<CompleteContactUs> {
   TextEditingController messageContentController = TextEditingController();
   bool messageContentValidate = false;
   String? selectedMessageType;
+
+  void toastMessage(String msg) {
+    showToastWidget(
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+        margin: EdgeInsets.symmetric(horizontal: 50.0),
+        decoration: ShapeDecoration(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          color: Color.fromRGBO(15, 23, 55, 1),
+        ),
+        child: Text(
+          msg,
+          style: TextStyle(
+            fontSize: 15.0,
+            color: Colors.white,
+            fontFamily: translationcontroller.isArabic == true
+                ? 'JannatBold'
+                : 'PoppinsMedium',
+          ),
+        ),
+      ),
+      context: context,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +224,41 @@ class _CompleteContactUsState extends State<CompleteContactUs> {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  if (messageTitleController.text.isEmpty) {
+                    setState(() {
+                      messageTitleValidate = true;
+                    });
+                    toastMessage(translationcontroller.isArabic.value
+                        ? 'من فضلك ادخل عنوان الرسالة'
+                        : 'PLease Enter Message Subject');
+                  } else if (selectedMessageType == null) {
+                    setState(() {
+                      messageTitleValidate = false;
+                    });
+                    toastMessage(translationcontroller.isArabic.value
+                        ? 'من فضلك اختار نوع الرسالة'
+                        : 'Please Choose Message Type');
+                  } else if (messageContentController.text.isEmpty) {
+                    setState(() {
+                      messageTitleValidate = false;
+                      messageContentValidate = true;
+                    });
+                    toastMessage(translationcontroller.isArabic.value
+                        ? 'من فضلك ادخل محتوى الرسالة'
+                        : 'Please Enter your Message Content');
+                  } else {
+                    setState(() {
+                      messageTitleValidate = false;
+                      messageContentValidate = false;
+                    });
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => IDScreen(),
+                      ),
+                    );
+                  }
+                },
                 child: Text(
                   language.send,
                   style: TextStyle(

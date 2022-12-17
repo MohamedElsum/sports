@@ -24,7 +24,7 @@ class TextInput extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.9,
       height: hint == language!.messContent
           ? MediaQuery.of(context).size.height * 0.2
-          : MediaQuery.of(context).size.height * 0.07,
+          : MediaQuery.of(context).size.height * 0.08,
       child: TextField(
         controller: controller,
         obscuringCharacter: '*',
@@ -42,7 +42,7 @@ class TextInput extends StatelessWidget {
                             : false,
         style: TextStyle(
           color: Colors.black,
-          fontFamily: 'Quicksand',
+          fontFamily: 'PoppinsMedium',
           fontSize: 15,
         ),
         keyboardType: hint == 'Phone Number'

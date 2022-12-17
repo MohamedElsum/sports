@@ -17,14 +17,10 @@ class Translation extends GetxController {
       ));
       textDirection.value = TextDirection.rtl;
       Get.updateLocale(locale.value);
-
-      //   log("****************************************$locale.value");
     } else if (!isArabic.value) {
       setLocale(const Locale.fromSubtags(languageCode: 'en'));
       textDirection.value = TextDirection.ltr;
       Get.updateLocale(locale.value);
-
-      log("********************************************$locale.value");
     }
   }
 

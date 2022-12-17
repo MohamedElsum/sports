@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sports/presentation/screens/contact_us.dart';
 import 'package:sports/presentation/screens/home_screen.dart';
 import 'package:sports/presentation/widgets/more_icons.dart';
@@ -60,7 +59,7 @@ class _MorePageState extends State<MorePage> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ContactUs(),
+                      builder: (context) => const ContactUs(),
                     ),
                   );
                 },
@@ -78,7 +77,7 @@ class _MorePageState extends State<MorePage> {
                         builder: (context) => BlocProvider(
                           create: (BuildContext context) =>
                               NewsCubit(_newsUsecase),
-                          child: HomeScreen(),
+                          child: const HomeScreen(),
                         ),
                       ),
                       (route) => false);

@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<NewsCubit, NewsStates>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+          backgroundColor: const Color.fromRGBO(243, 243, 243, 1),
           body: buildBlocWidget(state, size),
         );
       },
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
     } else if (state is NewsSuccess) {
       return buildBodyWidget(size, state.newsResponse);
     } else {
-      return Text('scnsmcn');
+      return const Text('Nothing');
     }
   }
 
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                     fontFamily: translationcontroller.isArabic.value
                         ? 'JannatBold'
                         : 'PoppinsMedium',
-                    color: Color.fromRGBO(0, 112, 172, 1),
+                    color: const Color.fromRGBO(0, 112, 172, 1),
                   ),
                 ),
               ],
@@ -215,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                     fontFamily: translationcontroller.isArabic.value
                         ? 'JannatBold'
                         : 'PoppinsMedium',
-                    color: Color.fromRGBO(0, 112, 172, 1),
+                    color: const Color.fromRGBO(0, 112, 172, 1),
                   ),
                 ),
               ],
@@ -279,7 +279,7 @@ class _HomePageState extends State<HomePage> {
                     fontFamily: translationcontroller.isArabic.value
                         ? 'JannatBold'
                         : 'PoppinsMedium',
-                    color: Color.fromRGBO(0, 112, 172, 1),
+                    color: const Color.fromRGBO(0, 112, 172, 1),
                   ),
                 ),
               ],
@@ -430,15 +430,11 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  child: Image.asset(
-                    'assets/images/sponsor.png',
-                  ),
+                Image.asset(
+                  'assets/images/sponsor.png',
                 ),
-                Container(
-                  child: Image.asset(
-                    'assets/images/sponsor.png',
-                  ),
+                Image.asset(
+                  'assets/images/sponsor.png',
                 ),
               ],
             ),

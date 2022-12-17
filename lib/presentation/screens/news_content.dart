@@ -31,7 +31,7 @@ class _NewsContentState extends State<NewsContent> {
             Container(
               width: size.width * 1,
               height: size.height * 0.2,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/nav.png"),
                   fit: BoxFit.cover,
@@ -54,7 +54,7 @@ class _NewsContentState extends State<NewsContent> {
                       },
                       child: translationcontroller.isArabic.value
                           ? Image.asset('assets/images/Icon.png')
-                          : Icon(
+                          : const Icon(
                               Icons.arrow_back_ios_new_sharp,
                               color: Colors.white,
                             ),

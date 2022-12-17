@@ -10,7 +10,7 @@ class LeagueTablePage extends StatefulWidget {
 class _LeagueTablePageState extends State<LeagueTablePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Text('League Table Page'),
       ),

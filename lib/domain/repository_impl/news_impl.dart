@@ -10,7 +10,6 @@ class NewsImpl implements NewsRepo {
   @override
   Future<List<NewsData>?>? getNews() async {
     final newsRes = await newsDataSourceImpl.getNews();
-    print(newsRes);
     List<NewsData> list = [];
     newsRes.map((e) {
       list.add(NewsData.fromJson(e));

@@ -47,7 +47,7 @@ class _MatchDetailsState extends State<MatchDetails> {
         Container(
           child: Column(
             children: [
-              Text(
+              const Text(
                 '22:00',
                 style: TextStyle(
                   fontFamily: 'PoppinsRegular',
@@ -68,26 +68,24 @@ class _MatchDetailsState extends State<MatchDetails> {
             ],
           ),
         ),
-        Container(
-          child: Row(
-            children: [
-              Image.asset(
-                'assets/images/clublogo.png',
+        Row(
+          children: [
+            Image.asset(
+              'assets/images/clublogo.png',
+            ),
+            SizedBox(
+              width: size.width * 0.03,
+            ),
+            Text(
+              language!.alahly,
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: translationcontroller.isArabic.value
+                    ? 'JannatBold'
+                    : 'PoppinsMedium',
               ),
-              SizedBox(
-                width: size.width * 0.03,
-              ),
-              Text(
-                language!.alahly,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: translationcontroller.isArabic.value
-                      ? 'JannatBold'
-                      : 'PoppinsMedium',
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );

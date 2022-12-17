@@ -22,7 +22,6 @@ class _NewsPageState extends State<NewsPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var language = AppLocalizations.of(context);
 
     return SingleChildScrollView(
       child: Column(

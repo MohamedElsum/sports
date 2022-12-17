@@ -85,7 +85,7 @@ class NewDetail extends StatelessWidget {
               ),
               Text(
                 news.createdAt.toString(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 11,
                   fontFamily: 'PoppinsRegular',
                   color: Colors.grey,

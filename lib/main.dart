@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sports/business_logic/cubit/news_cubit/news_cubit.dart';
 import 'package:sports/domain/usecase/news_usecase.dart';
 import 'package:sports/presentation/screens/home_screen.dart';
-
 import 'controller/translation/translation.dart';
 
 void main() {
