@@ -3,9 +3,11 @@ import 'package:sports/domain/models/news_data.dart';
 import 'package:sports/presentation/widgets/new_details.dart';
 
 import '../../domain/models/news.dart';
+import 'news_content.dart';
 
 class NewsPage extends StatefulWidget {
   final List<NewsData> newsData;
+
   const NewsPage({Key? key, required this.newsData}) : super(key: key);
 
   @override
@@ -28,8 +30,19 @@ class _NewsPageState extends State<NewsPage> {
               itemBuilder: (context, index) {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: NewDetail(
-                    news: widget.newsData[index],
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => NewsContent(
+                            newObject: widget.newsData[index],
+                          ),
+                        ),
+                      );
+                    },
+                    child: NewDetail(
+                      news: widget.newsData[index],
+                    ),
                   ),
                 );
               },
