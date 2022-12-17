@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sports/business_logic/cubit/news_cubit/news_cubit.dart';
+import 'package:sports/domain/models/news.dart';
 import 'package:sports/presentation/screens/league_table_page.dart';
 import 'package:sports/presentation/screens/media_center_page.dart';
 import 'package:sports/presentation/screens/more_page.dart';
 import 'package:sports/presentation/screens/stats_page.dart';
 
+import '../../domain/models/news_data.dart';
 import 'home_page.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,15 +19,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late NewsCubit _newsCubit;
+
   int _currentIndex = 0;
 
-  final List _screens = [
-    HomePage(),
-    LeagueTablePage(),
-    MediaCenterPage(),
-    StatsPage(),
-    MorePage(),
-  ];
+  List pages = [];
 
   final List<BottomNavigationBarItem> _items = [
     BottomNavigationBarItem(
@@ -83,6 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    _newsCubit = BlocProvider.of<NewsCubit>(context);
+    pages = [
+      HomePage(newsCubit: _newsCubit),
+      LeagueTablePage(),
+      MediaCenterPage(newsCubit: _newsCubit),
+      StatsPage(),
+      MorePage(),
+    ];
+  }
+
   void _updateIndex(int value) {
     setState(() {
       _currentIndex = value;
@@ -92,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
+      body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,

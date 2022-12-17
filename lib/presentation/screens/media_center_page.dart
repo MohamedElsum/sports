@@ -1,11 +1,16 @@
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 import 'package:flutter/material.dart';
+import 'package:sports/business_logic/cubit/news_cubit/news_cubit.dart';
 import 'package:sports/presentation/screens/news_page.dart';
 import 'package:sports/presentation/screens/photos_page.dart';
 import 'package:sports/presentation/screens/videos_page.dart';
 
 class MediaCenterPage extends StatefulWidget {
-  const MediaCenterPage({Key? key}) : super(key: key);
+  NewsCubit newsCubit;
+
+  MediaCenterPage({
+    required this.newsCubit,
+  });
 
   @override
   State<MediaCenterPage> createState() => _MediaCenterPageState();
@@ -17,8 +22,8 @@ class _MediaCenterPageState extends State<MediaCenterPage>
 
   @override
   void initState() {
-    _tabController = new TabController(length: 3, vsync: this);
     super.initState();
+    _tabController = new TabController(length: 3, vsync: this);
   }
 
   @override
@@ -40,7 +45,7 @@ class _MediaCenterPageState extends State<MediaCenterPage>
             child: Column(
               children: [
                 SizedBox(
-                  height: size.height * 0.096,
+                  height: size.height * 0.081,
                 ),
                 Image.asset('assets/images/logo.png'),
                 Container(
@@ -75,7 +80,9 @@ class _MediaCenterPageState extends State<MediaCenterPage>
             child: TabBarView(
               controller: _tabController,
               children: [
-                NewsPage(),
+                NewsPage(
+                  newsData: widget.newsCubit.newsResponse,
+                ),
                 PhotosPage(),
                 VideosPage(),
               ],

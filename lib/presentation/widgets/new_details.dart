@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sports/domain/models/news_data.dart';
 
 class NewDetail extends StatelessWidget {
-  String img;
+  NewsData news;
 
   NewDetail({
-    required this.img,
+    required this.news,
   });
 
   @override
@@ -18,7 +19,12 @@ class NewDetail extends StatelessWidget {
             Container(
               child: Stack(
                 children: [
-                  Image.asset(img),
+                  Image.network(
+                    news.image.toString(),
+                    width: size.width * 0.35,
+                    height: size.height * 0.15,
+                    fit: BoxFit.cover,
+                  ),
                   Positioned(
                     bottom: 0,
                     left: 0,
@@ -51,7 +57,7 @@ class NewDetail extends StatelessWidget {
                 height: size.height * 0.01,
               ),
               Text(
-                'From Saudi stadiums to the podium of the World Cup.',
+                news.titleEn.toString(),
                 maxLines: 3,
                 style: TextStyle(
                   fontSize: 14,
@@ -62,7 +68,7 @@ class NewDetail extends StatelessWidget {
                 height: size.height * 0.01,
               ),
               Text(
-                '12 Jul 2018',
+                news.createdAt.toString(),
                 style: TextStyle(
                   fontSize: 11,
                   fontFamily: 'PoppinsRegular',
